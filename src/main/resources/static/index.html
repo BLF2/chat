@@ -38,19 +38,31 @@
       }
     });
     $("#btnSubmit").click(function(){
-      var username = $("#inputUserName").val()
-      var password = $("#inputPassword").val()
+      var username = $("#inputUserName").val();
+      var password = $("#inputPassword").val();
       var mdhPassword = SparkMD5.hash(password);
       var dataObject = {
         "username":username,
         "password":mdhPassword
-      }
-      var dataJson = JSON.stringify(dataObject)
+      };
+      var dataJson = JSON.stringify(dataObject);
       //请求后台
       $.post("/chat/user/login",dataJson,
-      function(data,status){
-        alert("Data: " + data + "\nStatus: " + status);
-      },"json");
+          function(result,status){
+            if(!result){
+                alert("失败，请联系管理员");
+                return;
+            }
+            if(result.code == '0'){
+                //成功了 取result.data即为token
+                var token = result.data;
+                localStorage.setItem('token',token);
+                //跳转到正确页面
+                location.href="/chat/html/chat.html"
+            }else{
+                alert("失败:" + result.msg);
+            }
+          },"json");
     });
 </script>
 </html>

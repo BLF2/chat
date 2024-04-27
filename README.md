@@ -8,8 +8,8 @@
 ## 2 框架
 + Spring Boot 3.0.2
 + Mybatis Plus 3.5.3.2
-+ Druid 1.2.18
-
++ Bootstrap 3
++ JQuery 1.21
 ## 3 mysql脚本
 
 ```sql
