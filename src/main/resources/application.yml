@@ -1,0 +1,24 @@
+# 应用服务 WEB 访问端口
+server:
+  port: 8080
+  servlet:
+    context-path: /${spring.application.name}
+spring:
+  application:
+    name: chat
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/chat
+    username: root
+    password: mxh19940822
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 15
+      auto-commit: true
+      idle-timeout: 30000
+      pool-name: DatebookHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 10000
+      connection-test-query: SELECT 1
+log:
+  dir: /Users/mengxianhou/Documents/workspace/logs
