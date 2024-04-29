@@ -4,10 +4,12 @@ import cn.hutool.core.lang.UUID;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.blf2.chat.common.CommonConstants;
 import com.blf2.chat.common.ResultBase;
+import com.blf2.chat.config.BigModelConfig;
 import com.blf2.chat.dao.UserInfoDao;
 import com.blf2.chat.entity.UserInfo;
 import com.blf2.chat.service.UserInfoService;
 import com.blf2.chat.util.CacheUtil;
+import com.blf2.chat.util.BmUtil;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,9 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoDao, UserInfo> impl
 
     @Resource
     private CacheUtil cacheUtil;
+
+    @Resource
+    private BigModelConfig bigModelConfig;
 
     @Override
     public ResultBase<String> login(String username, String password) {
@@ -38,5 +43,10 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoDao, UserInfo> impl
     public ResultBase<String> logout(String token){
         cacheUtil.removeKey(token);
         return ResultBase.success();
+    }
+
+    @Override
+    public String getAuthUrl() {
+        return BmUtil.getAuthUrl(bigModelConfig.getWssUrl(),bigModelConfig.getApiKey(),bigModelConfig.getApiSecret());
     }
 }

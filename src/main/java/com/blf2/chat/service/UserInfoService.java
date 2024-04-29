@@ -9,4 +9,6 @@ public interface UserInfoService extends IService<UserInfo> {
     ResultBase<String> login(String username,String password);
 
     ResultBase<String> logout(String token);
+
+    String getAuthUrl();
 }

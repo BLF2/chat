@@ -34,4 +34,9 @@ public class UserController {
         }
         return userInfoService.logout(currentToken);
     }
+
+    @GetMapping("/sparkAuthUrl")
+    public ResultBase<String> sparkAuthUrl(){
+        return ResultBase.success(userInfoService.getAuthUrl());
+    }
 }

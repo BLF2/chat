@@ -10,7 +10,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/chat
     username: root
-    password: mxh19940822
+    password: root
     hikari:
       minimum-idle: 5
       maximum-pool-size: 15
@@ -20,5 +20,12 @@ spring:
       max-lifetime: 1800000
       connection-timeout: 10000
       connection-test-query: SELECT 1
+  profiles:
+    active: local
+xunfei:
+  bm:
+    appId: 你的讯飞星火大模型APPID
+    apiSecret: 你的讯飞星火大模型API SECRET
+    apiKey: 你的讯飞星火大模型API KEY
 log:
-  dir: /Users/mengxianhou/Documents/workspace/logs
+  dir: /xxx/logs
