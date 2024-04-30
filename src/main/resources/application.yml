@@ -8,8 +8,11 @@ spring:
     name: chat
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
+    # 数据库 连接接字符串 localhost和chat需要更换成自己的
     url: jdbc:mysql://localhost:3306/chat
+    # 数据库 用户名
     username: root
+    # 数据库 密码
     password: root
     hikari:
       minimum-idle: 5
@@ -20,12 +23,12 @@ spring:
       max-lifetime: 1800000
       connection-timeout: 10000
       connection-test-query: SELECT 1
-  profiles:
-    active: local
+# 星火大模型配置
 xunfei:
   bm:
-    appId: 你的讯飞星火大模型APPID
-    apiSecret: 你的讯飞星火大模型API SECRET
-    apiKey: 你的讯飞星火大模型API KEY
+    appId: 你的星火大模型AppId
+    apiSecret: 你的星火大模型APISecret
+    apiKey: 你的星火大模型APIKey
+# 日志文件存放位置
 log:
-  dir: /xxx/logs
+  dir: /chat/logs

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
  * 大模型配置信息
  */
 @Configuration
-public class BigModelConfig {
+public class SparkBigModelConfig {
 
     @Value("${xunfei.bm.appId}")
     private String appId;

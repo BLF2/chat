@@ -1,21 +1,19 @@
 # Chat系统
-## 1 环境
+## 一 环境
 + JDK 17.0.4
 + Mysql 8.0.33
 + Maven 3.8.1
 
 
-## 2 框架
+## 二 框架
 + Spring Boot 3.0.2
 + Mybatis Plus 3.5.3.2
-+ Bootstrap 3
++ Bootstrap 3.x
 + JQuery 1.21
-## 3 mysql脚本
+## 三 mysql脚本
 
 ```sql
 -- 创建数据库
-CREATE DATABASE `chat` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
--- 创建user_info表
 drop table if exists user_info;
 create table user_info(
     id bigint primary key auto_increment comment '物理主键',
@@ -31,3 +29,13 @@ create table user_info(
 -- 初始化一条数据进去
 insert into user_info values(default,'admin',MD5('admin'),'admin',now(),'admin',now(),'admin');
 ```
+
+## 4. 本地启动
+1. 准备环境：Mysql8.0+，IDEA（配置好Maven），JDK17+，Chrome，
+2. 星火大模型注册并拿到3.5版本的AppId，AppSecret，AppKey，获取地址：[https://xinghuo.xfyun.cn/](https://xinghuo.xfyun.cn/)
+3. Mysql新建数据，命名为`chat`，默认字符集是`utf8mb4`,默认排序规则`utf8mb4_0900_ai_ci`
+4. 执行上面《三》中的脚本
+5. IDEA导入本项目
+6. 修改`application.yml`中的数据库连接信息，星火大模型信息，日志文件存放路径
+7. 启动
+8. 浏览器输入`http://localhost:8080/chat/index.html` 默认用户名密码`admin/admin`

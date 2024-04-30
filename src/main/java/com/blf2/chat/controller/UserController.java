@@ -2,7 +2,9 @@ package com.blf2.chat.controller;
 
 import com.blf2.chat.common.CommonConstants;
 import com.blf2.chat.common.ResultBase;
+import com.blf2.chat.config.SparkBigModelConfig;
 import com.blf2.chat.dto.LoginReq;
+import com.blf2.chat.dto.SparkRes;
 import com.blf2.chat.service.UserInfoService;
 import com.blf2.chat.util.HttpRequestUtil;
 import jakarta.annotation.Resource;
@@ -15,6 +17,9 @@ public class UserController {
 
     @Resource
     private UserInfoService userInfoService;
+
+    @Resource
+    private SparkBigModelConfig sparkBigModelConfig;
 
     @PostMapping("/login")
     public ResultBase<String> login(@RequestBody LoginReq loginReq){
@@ -36,7 +41,10 @@ public class UserController {
     }
 
     @GetMapping("/sparkAuthUrl")
-    public ResultBase<String> sparkAuthUrl(){
-        return ResultBase.success(userInfoService.getAuthUrl());
+    public ResultBase<SparkRes> sparkAuthUrl(){
+        SparkRes sparkRes = new SparkRes();
+        sparkRes.setAppId(sparkBigModelConfig.getAppId());
+        sparkRes.setWssUrl(userInfoService.getAuthUrl());
+        return ResultBase.success(sparkRes);
     }
 }

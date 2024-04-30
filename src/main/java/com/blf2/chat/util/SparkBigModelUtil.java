@@ -15,7 +15,7 @@ import java.util.*;
 /**
  * 大模型工具类
  */
-public class BmUtil {
+public class SparkBigModelUtil {
 
     public static String getAuthUrl(String hostUrl, String apiKey, String apiSecret){
         URL url = null;

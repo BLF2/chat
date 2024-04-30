@@ -33,7 +33,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/chat/user/logout">退出登录</a></li>
+                <li><a id="logout" href="#">退出登录</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
@@ -54,7 +54,6 @@
             <span class="input-group-addon" id="sizing-addon1">chat:</span>
             <div class="form-control" aria-describedby="sizing-addon1" style="height:600px" >
                 <div id="div1">你: 你好</div>
-                <div id="div2">--: 你好，有什么可以帮您的?</div>
             </div>
         </div>
     </div><!-- /.col-lg-6 -->
@@ -62,6 +61,8 @@
 </body>
 <script>
     var historyList=new Array();
+    var minDiv=1;
+    var maxDiv=1;
     $.ajaxSetup({
         beforeSend: function(xhr) {
             xhr.setRequestHeader('Content-type', 'application/json;charset=utf8');
@@ -75,10 +76,12 @@
             alert("失败，请联系管理员");
             return;
         }
-        if(result.code == '0'){
+        if(result.code == '0' && result.data){
             //成功了 取result.data即为websocket的地址
-            var wssUrl = result.data
+            var wssUrl = result.data.wssUrl
+            var appId = result.data.appId
             localStorage.setItem('wssUrl',wssUrl);
+            localStorage.setItem('appId',appId);
             connectSparkBm("你好")
         }else{
             alert("失败:" + result.msg);
@@ -86,9 +89,10 @@
     },"json");
 
     $("#submitQuestion").click(function(){
-        var questionText = $("#questionText").val()
-        $("#questionText").val("")
-
+        var questionText = $("#questionText").val();
+        $("#questionText").val("");
+        console.log("本次问题：" + questionText);
+        connectSparkBm(questionText);
     })
     function connectSparkBm(question){
         //连接星火大模型
@@ -119,13 +123,19 @@
             ws.onclose = function(e){
                 //当客户端收到服务端发送的关闭连接请求时，触发onclose事件
                 console.log("全部回复:" + responseStr);
+                var currentMaxDiv = maxDiv;
+                maxDiv++;
+                var eleId = "#div"+currentMaxDiv;
+                var nextEleId = "div"+maxDiv;
+                var appendDiv = '<div id="'+ nextEleId +'">客服助手:'+ responseStr +'</div>';
+                $(eleId).after(appendDiv);
                 historyList[historyList.length] =
                 {
                     role:"assistant",
                     content:responseStr
                 };
                 historyList = subList(historyList);
-                
+
                 console.log("websocket已断开");
             }
             ws.onerror = function(e){
@@ -144,7 +154,7 @@
         historyList = subList(historyList);
         var sendMsg = {
                 header: {
-                    app_id: "b84192f8",
+                    app_id: localStorage.getItem('appId'),
                     uid: generateUUID()
                 },
                 parameter: {
@@ -173,13 +183,23 @@
     }
     function subList(sourceList){
         if(sourceList.length > 10){
+            //  超过10个 要裁剪
+            var minDivId = "#div"+minDiv;
+            $(minDivId).remove();
+            minDiv++;
             return sourceList.slice(sourceList.length - 10,sourceList.length);
         }
         return sourceList;
     }
 
-
-
+    $("#logout").click(function(){
+        $.get("/chat/user/logout",function(result,status){
+            if(result && result.code == 0){
+                localStorage.clear()
+                window.location.href = result.data;
+            }
+        })
+    })
 
 
 </script>

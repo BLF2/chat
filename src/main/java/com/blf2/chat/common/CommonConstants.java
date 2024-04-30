@@ -8,8 +8,6 @@ public class CommonConstants {
 
     public static final String NEED_LOGIN = "请登录";
 
-    public static final String TO_LOGIN_HTML_HEADER = "Location";
-
     public static final String TO_LOGIN_HTML_URL = "/chat/index.html";
 
     public static final String LOGIN_URL = "/user/login";

@@ -69,7 +69,7 @@ public class TokenFilter implements Filter {
 
     private void toLoginHtml(HttpServletResponse httpServletResponse) throws IOException {
         httpServletResponse.setStatus(HttpServletResponse.SC_FOUND);
-        httpServletResponse.setHeader(CommonConstants.TO_LOGIN_HTML_HEADER, CommonConstants.TO_LOGIN_HTML_URL);
+        httpServletResponse.sendRedirect(CommonConstants.TO_LOGIN_HTML_URL);
         httpServletResponse.flushBuffer();
     }
 }
