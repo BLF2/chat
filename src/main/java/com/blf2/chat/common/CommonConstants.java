@@ -10,7 +10,7 @@ public class CommonConstants {
 
     public static final String TO_LOGIN_HTML_HEADER = "Location";
 
-    public static final String TO_LOGIN_HTML_URL = "login.html";
+    public static final String TO_LOGIN_HTML_URL = "/chat/index.html";
 
     public static final String LOGIN_URL = "/user/login";
 
