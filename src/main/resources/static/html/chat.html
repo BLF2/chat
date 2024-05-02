@@ -92,6 +92,14 @@
         var questionText = $("#questionText").val();
         $("#questionText").val("");
         console.log("本次问题：" + questionText);
+
+        var currentMaxDiv = maxDiv;
+        maxDiv++;
+        var eleId = "#div"+currentMaxDiv;
+        var nextEleId = "div"+maxDiv;
+        var appendDiv = '<div id="'+ nextEleId +'">你:'+ questionText +'</div>';
+        $(eleId).after(appendDiv);
+
         connectSparkBm(questionText);
     })
     function connectSparkBm(question){
