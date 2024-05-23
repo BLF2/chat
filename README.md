@@ -30,7 +30,7 @@ create table user_info(
 insert into user_info values(default,'admin',MD5('admin'),'admin',now(),'admin',now(),'admin');
 ```
 
-## 4. 本地启动
+## 四. 本地启动
 1. 准备环境：Mysql8.0+，IDEA（配置好Maven），JDK17+，Chrome，
 2. 星火大模型注册并拿到3.5版本的AppId，AppSecret，AppKey，获取地址：[https://xinghuo.xfyun.cn/](https://xinghuo.xfyun.cn/)
 3. Mysql新建数据，命名为`chat`，默认字符集是`utf8mb4`,默认排序规则`utf8mb4_0900_ai_ci`
